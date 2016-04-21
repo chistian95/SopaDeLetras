@@ -1,12 +1,22 @@
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-//Test
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
-public class Sopa {
+public class Sopa extends JFrame {
+	private static final long serialVersionUID = 1L;
+	
 	private int lineas, columnas, palabrasTotales;
 	private char[][] tablero;
 	private List<Palabra> palabras;
+	
+	private JTextField[][] celdasPantalla;
+	private Font fuente;
 	
 	Sopa() {
 		this(10, 10, 5);
@@ -20,6 +30,9 @@ public class Sopa {
 		this.palabrasTotales = palabrasTotales;
 		tablero = new char[lineas][columnas];
 		palabras = new ArrayList<Palabra>();
+		
+		celdasPantalla = new JTextField[lineas][columnas];
+		fuente = new Font("Monospaced", Font.BOLD, 20);
 	}
 	
 	public void generarTablero() {		
@@ -51,28 +64,27 @@ public class Sopa {
 	}
 	
 	public void pintarTablero() {
-		System.out.print("\n");
-		for(int i=0; i<columnas; i++) {
-			System.out.print("--");
-		}
-		System.out.println("\nSopa de Letras");
-		for(int i=0; i<columnas; i++) {
-			System.out.print("--");
-		}
-		System.out.print("\n");
+		Container cp = getContentPane();
+		cp.setLayout(new GridLayout(lineas, columnas));
+		
 		for(int linea=0; linea<lineas; linea++) {
 			for(int col=0; col<columnas; col++) {
-				System.out.print(tablero[linea][col]+" ");
+				celdasPantalla[linea][col] = new JTextField();
+				cp.add(celdasPantalla[linea][col]);
+				
+				celdasPantalla[linea][col].setText(tablero[linea][col]+"");
+				celdasPantalla[linea][col].setEditable(false);
+				celdasPantalla[linea][col].setHorizontalAlignment(JTextField.CENTER);
+				celdasPantalla[linea][col].setFont(fuente);
 			}
-			System.out.print("\n");
 		}
-		for(int i=0; i<columnas; i++) {
-			System.out.print("--");
-		}
-		System.out.println("\nPalabras: \n"+getPalabras());
-		for(int i=0; i<columnas; i++) {
-			System.out.print("--");
-		}
+		
+		cp.setPreferredSize(new Dimension(lineas, columnas));
+		pack();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Sopa de Letras");
+		setSize(600, 600);
+		setVisible(true);
 	}
 	
 	private boolean palabraValida(int linea, int col, int orientacion, String palabra) {
@@ -147,14 +159,6 @@ public class Sopa {
 			}
 		}
 		return false;
-	}
-	
-	private String getPalabras() {
-		String msg = "";
-		for(Palabra pl : palabras) {
-			msg += "\n"+pl.getPalabra()+" ("+Orientacion.ORIENTACION[pl.getOrientacion()]+")";
-		}
-		return msg;
 	}
 	
 	public char[][] getTablero() { return tablero; }
