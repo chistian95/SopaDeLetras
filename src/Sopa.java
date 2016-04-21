@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 
 public class Sopa extends JFrame {
 	private static final long serialVersionUID = 1L;
+	private static final boolean verbose = true;
 	
 	private int lineas, columnas, palabrasTotales;
 	private char[][] tablero;
@@ -44,7 +45,9 @@ public class Sopa extends JFrame {
 			String palabra = Diccionario.getRandom();
 			
 			if(palabraValida(rndLinea, rndCol, rndOrientacion, palabra)) {
-				System.out.println("Palabra "+palabra+" en "+rndLinea+", "+rndCol+" con orientacion "+Orientacion.ORIENTACION[rndOrientacion]);
+				if(verbose) {
+					System.out.println("Palabra "+palabra+" en "+rndLinea+", "+rndCol+" con orientacion "+Orientacion.ORIENTACION[rndOrientacion]);
+				}				
 				Palabra pl = new Palabra(rndLinea, rndCol, rndOrientacion, palabra, this);
 				palabras.add(pl);
 				pl.meterEnTablero();
