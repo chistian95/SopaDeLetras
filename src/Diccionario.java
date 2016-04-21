@@ -8,7 +8,11 @@ public class Diccionario {
 				"CONEJO",
 				"VACA",
 				"ALCOHOL",
-				"TECLADO"
+				"TECLADO",
+				"PINTURA",
+				"PEGATINA",
+				"PAPEL",
+				"DICCIONARIO"
 		};
 	
 	public static String getRandom() {
