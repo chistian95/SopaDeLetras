@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+//Test
+
 public class Sopa {
 	private int lineas, columnas, palabrasTotales;
 	private char[][] tablero;
